@@ -2,6 +2,10 @@ const express = require('express')
 const app = express()
 const port = 8017
 
+// translate req.body
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 const users = [
   { name: 'Cuong', age: 24 },
   { name: 'Luan', age: 23 },
@@ -30,6 +34,15 @@ app.get('/users/search', (req, res) => {
     users: matchUserList,
     valueInput: q
   })
+})
+
+app.get('/users/create', (req, res) => {
+  res.render('users/create')
+})
+
+app.post('/users/create', (req, res) => {
+  users.push(req.body)
+  res.redirect('/users')
 })
 
 app.listen(port, () => {
