@@ -1,2 +1,4 @@
-each user in users
-  h1 Wellcome #{user.name}
+extends ../layouts/common.pug
+block content
+  each user in users
+    h3 Wellcome #{user.name}
