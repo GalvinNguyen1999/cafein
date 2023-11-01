@@ -1,10 +1,16 @@
 extends ../layouts/common.pug
 block content
   h3 Create User:
+  if errors
+    each error in errors
+      .alert.alert-danger #{error}
   form(action="/users/create", method="POST", class="mt-2 w-25 ps-4")
-    h4 Name
-    input(type="text", name="name", class="form-control")
+    label(for="name" class="my-2") Name:
+    input(type="text", name="name", class="form-control" id="name", value=values ? values.name : '')
 
-    h4 Age
-    input(type="text", name="age", class="form-control")
+    label(for="age" class="my-2") Age:
+    input(type="text", name="age", class="form-control" id="age", value=values ? values.age : '')
+    
+    label(for="phone" class="my-2") Phone:
+    input(type="text", name="phone", class="form-control" id="phone", value=values ? values.phone : '')
     button(class="btn btn-primary mt-3") Create 
