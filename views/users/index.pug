@@ -1,12 +1,16 @@
-h1 List Users
+extends ../layouts/common.pug
+block content
+  h1 List Users
 
-a(href="/users/create") Create New 
-form(action="/users/search", method="GET") 
-  input(type="text", name="q", value=valueInput)
-  button Search
-ul 
-  each user in users
-    li 
-      span #{user.name} and #{user.age}
-      span &nbsp;
-      a(href="/users/" + user.id) View  
+  a(href="/users/create") Create New
+
+  form(action="/users/search", method="GET", class="mt-2 d-flex gap-2 w-25") 
+    input(type="text", name="q", value=valueInput, class="form-control")
+    button(class="btn btn-primary") Search
+
+  ul(class="d-flex flex-column gap-2")
+    each user in users
+      li
+        span #{user.name} and #{user.age}
+        span &nbsp;
+        a(href="/users/" + user.id, class="btn btn-success") View
