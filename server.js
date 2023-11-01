@@ -1,16 +1,5 @@
 const express = require('express')
-const low = require('lowdb')
-const shortid = require('shortid');
-const FileSync = require('lowdb/adapters/FileSync')
-
-const adapter = new FileSync('db.json')
-const db = low(adapter)
-// Set some defaults
-db.defaults({ users: [] })
-  .write()
-
-const dbUsers = db.get('users')
-
+const userRoure = require('./routes/user.route')
 const app = express()
 const port = 8017
 
@@ -27,38 +16,7 @@ app.get('/', (req, res) => {
   })
 })
 
-app.get('/users', (req, res) => {
-  res.render('users/index', {
-    users: dbUsers.value()
-  })
-})
-
-app.get('/users/search', (req, res) => {
-  const q = req.query.q
-  const matchUserList = dbUsers.value().filter((user) => user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1 )
-  res.render('users/index', {
-    users: matchUserList,
-    valueInput: q
-  })
-})
-
-app.get('/users/create', (req, res) => {
-  res.render('users/create')
-})
-
-app.get('/user/:id', (req, res) => {
-  const id = req.params.id
-  const users = dbUsers.filter((u) => u.id === id).value()
-  res.render('users/view', {
-    users: users
-  })
-})
-
-app.post('/users/create', (req, res) => {
-  req.body.id = shortid.generate() 
-  db.get('users').push(req.body).write()
-  res.redirect('/users')
-})
+app.use('/users', userRoure)
 
 app.listen(port, () => {
   console.log(`Server running:  http://localhost:${port}`)
