@@ -1,5 +1,6 @@
 const express = require('express')
 const controllers = require('../controllers/user.controller') 
+const validate = require('../middlewares/user.validate')
 
 const route = express.Router()
 
@@ -11,6 +12,6 @@ route.get('/create', controllers.create)
 
 route.get('/:id', controllers.get)
 
-route.post('/create', controllers.postCreate)
+route.post('/create', validate.postCreate , controllers.postCreate)
 
 module.exports = route
