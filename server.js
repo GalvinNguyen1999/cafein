@@ -1,6 +1,9 @@
 const express = require('express')
-const userRoure = require('./routes/user.route')
 var cookieParser = require('cookie-parser')
+const userRoute = require('./routes/user.route')
+const authRoute = require('./routes/auth.route')
+
+const authMiddlerware = require('./middlewares/auth.middleware')
 
 const app = express()
 const port = 8017
@@ -23,7 +26,8 @@ app.get('/cookie', (req, res) => {
   res.send('Goodbye world!')
 })
 
-app.use('/users', userRoure)
+app.use('/users', authMiddlerware.requireAuth , userRoute)
+app.use('/auth', authRoute)
 
 app.listen(port, () => {
   console.log(`Server running:  http://localhost:${port}`)
