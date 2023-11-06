@@ -17,8 +17,6 @@ module.exports.requireAuth = (req, res, next) => {
 
   const user = dbUsers.find({ id: userID }).value()
 
-  console.log('user: ', user)
-
   if (!user) {
     res.render('auth/login', {
       errors: [
