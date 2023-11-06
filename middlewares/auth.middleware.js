@@ -2,7 +2,7 @@ const db = require('../db')
 const dbUsers = db.get('users')
 
 module.exports.requireAuth = (req, res, next) => {
-  const userID = req.cookies.userID
+  const userID = req.signedCookies.userID
 
   if (!userID) {
     res.render('auth/login', {
@@ -15,11 +15,11 @@ module.exports.requireAuth = (req, res, next) => {
     return
   }
 
-  const user = dbUsers.find({ id: userID }).value()
+  const user = dbUsers.find({ id: req.signedCookies.userID }).value()
 
   if (!user) {
     res.render('auth/login', {
-      errors: [
+  errors: [
         'User not valid'
       ],
       values: req.body
@@ -28,5 +28,6 @@ module.exports.requireAuth = (req, res, next) => {
     return
   }
 
+  res.locals.user = user
   next()
 }
