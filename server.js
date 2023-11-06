@@ -12,7 +12,7 @@ const port = 8017
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
-app.use(cookieParser())
+app.use(cookieParser("abc"))
 
 app.set('view engine', 'pug')
 app.set('views', './views')

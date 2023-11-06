@@ -14,5 +14,7 @@ html
               a.nav-link.active(aria-current='page', href='/users') Users
             li.nav-item
               a.nav-link.active(aria-current='page', href='/users/create') Create New
+        if user      
+          p=user.name
     .container-fluid
       block content
