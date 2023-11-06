@@ -1,6 +1,6 @@
 const db = require('../db')
-const shortid = require('shortid');
 const dbUsers = db.get('users')
+const md5 = require('md5');
 
 module.exports.index = (req, res) => {
   res.render('auth/login')
@@ -21,7 +21,9 @@ module.exports.postLogin = (req, res) => {
     return
   }
 
-  if (user.password !== password) {
+  const hashPassword = md5(password)
+
+  if (user.password !== hashPassword) {
     res.render('auth/login.pug', {
       errors: [
         'Wrong password !'
