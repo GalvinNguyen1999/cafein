@@ -3,13 +3,13 @@ const dotenv = require('dotenv')
 var cookieParser = require('cookie-parser')
 const userRoute = require('./routes/user.route')
 const authRoute = require('./routes/auth.route')
+const productRoute = require('./routes/product.route')
 
 const authMiddlerware = require('./middlewares/auth.middleware')
 
 const app = express()
 const port = 8017
 dotenv.config()
-console.log('process.env.SESSION_SECRET: ', process.env.SESSION_SECRET)
 // translate req.body
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -30,6 +30,7 @@ app.get('/cookie', (req, res) => {
 
 app.use('/users', authMiddlerware.requireAuth , userRoute)
 app.use('/auth', authRoute)
+app.use('/product', productRoute)
 
 app.listen(port, () => {
   console.log(`Server running:  http://localhost:${port}`)
