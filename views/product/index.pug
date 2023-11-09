@@ -1,0 +1,28 @@
+extends ../layouts/common.pug
+block content
+  .container
+    .container
+      .d-flex.justify-content-between
+        h4 Products
+
+        form.d-flex.w-25(role='search', action='/users/search', method='GET')
+          input.form-control.me-2(name='q', type='search', placeholder='Search', aria-label='Search')
+          button.btn.btn-outline-success(type='submit') Search
+    
+    .container.mt-5
+        .row.gap-2
+          each product in products
+            .col 
+              .card(style='width: 18rem;')
+                img.card-img-top(src=product.image, alt=product.name)
+                .card-body
+                  h5.card-title #{product.name}
+                  p.card-text
+                    | #{product.description}
+                  a.btn.btn-primary(href='#') Buy
+
+    nav.mt-3(aria-label='Page navigation example')
+      ul.pagination.justify-content-center
+        each product, index in products
+          li.page-item
+            a.page-link(href='http://localhost:8017/product?page=' +  index) #{index}
