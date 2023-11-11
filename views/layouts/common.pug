@@ -14,6 +14,13 @@ html
               a.nav-link.active(aria-current='page', href='/users') Users
             li.nav-item
               a.nav-link.active(aria-current='page', href='/users/create') Create New
+            li.nav-item
+              a.nav-link.active(aria-current='page', href='/product') Product
+            li.nav-item
+              a.nav-link.active.position-relative(aria-current='page', href='/card') Card
+                if sum
+                  span.position-absolute.top-1.start-100.translate-middle.badge.rounded-pill.bg-danger=sum
+                    span.visually-hidden unread messages
         if user      
           p=user.name
     .container-fluid
